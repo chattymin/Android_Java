@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,14 +28,27 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        calc();
-
+        checkChnage();
     }
 
-    private void init() {
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    private void checkChnage(){
+        binding.radioGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+            int radioButton1Id = binding.rbSpaceHuman.getId();
+            int radioButton2Id = binding.rbSpaceRocket.getId();
+
+            if(checkedId == radioButton1Id){
+                changeImg(R.drawable.img_space_human);
+            } else if (checkedId == radioButton2Id) {
+                changeImg(R.drawable.img_space_rocket);
+            }
+        });
     }
 
+    private void changeImg(int id){
+        binding.ivSpaceImg.setImageResource(id);
+    }
+
+    /*
     private void calc() {
         binding.buttonPlus.setOnClickListener(view -> {
             String plusNum = String.valueOf(Integer.parseInt(binding.editTextFirstNum.getText().toString()) + Integer.parseInt(binding.editTextSecondNum.getText().toString()));
@@ -72,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setText(String text) {
         binding.textViewResult.setText("Result : " + text);
+    }
+
+     */
+
+    private void init() {
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     private void keyboardHide() {

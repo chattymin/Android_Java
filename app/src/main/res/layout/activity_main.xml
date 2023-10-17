@@ -6,73 +6,108 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTextFirstNum"
-        android:layout_width="0dp"
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="첫번째 숫자를 입력해주세요"
-        android:layout_marginTop="40dp"
-        android:inputType="number"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editTextSecondNum"
+        <RadioButton
+            android:id="@+id/rb_space_human"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="우주 비행사" />
+
+        <RadioButton
+            android:id="@+id/rb_space_rocket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="우주 로켓" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/iv_space_img"
+        app:srcCompat="@drawable/img_space_human"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="두번째 숫자를 입력해주세요"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/editTextFirstNum"
-        app:layout_constraintStart_toStartOf="@+id/editTextFirstNum"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFirstNum" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        android:contentDescription="Space human" />
 
-    <Button
-        android:id="@+id/buttonPlus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextSecondNum"
-        app:layout_constraintStart_toStartOf="@+id/editTextSecondNum"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSecondNum" />
 
-    <Button
-        android:id="@+id/buttonMinus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"
-        app:layout_constraintStart_toStartOf="@+id/buttonPlus"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlus" />
 
-    <Button
-        android:id="@+id/buttonMultiply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*"
-        app:layout_constraintStart_toStartOf="@+id/buttonMinus"
-        app:layout_constraintTop_toBottomOf="@+id/buttonMinus" />
+    <!--    <EditText-->
+<!--        android:id="@+id/editTextFirstNum"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="첫번째 숫자를 입력해주세요"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/buttonDivide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="/"
-        app:layout_constraintStart_toStartOf="@+id/buttonMultiply"
-        app:layout_constraintTop_toBottomOf="@+id/buttonMultiply" />
+<!--    <EditText-->
+<!--        android:id="@+id/editTextSecondNum"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="두번째 숫자를 입력해주세요"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/editTextFirstNum"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/editTextFirstNum"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/editTextFirstNum" />-->
 
-    <TextView
-        android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/buttonDivide"
-        app:layout_constraintStart_toStartOf="@+id/buttonDivide"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDivide" />
+<!--    <Button-->
+<!--        android:id="@+id/buttonPlus"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="+"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/editTextSecondNum"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/editTextSecondNum"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/editTextSecondNum" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonMinus"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="-"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/buttonPlus"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/buttonPlus" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonMultiply"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="*"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/buttonMinus"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/buttonMinus" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonDivide"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="/"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/buttonMultiply"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/buttonMultiply" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewResult"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text=""-->
+<!--        android:textSize="48sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/buttonDivide"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/buttonDivide"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/buttonDivide" />-->
 
     <!--    <EditText-->
 <!--        android:id="@+id/editTextID"-->
