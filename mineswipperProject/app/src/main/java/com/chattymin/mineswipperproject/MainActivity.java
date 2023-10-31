@@ -44,12 +44,6 @@ public class MainActivity extends AppCompatActivity {
                     1.0f
             );
 
-            tableRow.setLayoutParams(new TableRow.LayoutParams(
-                    TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT,
-                    1.0f
-            ));
-
             for (int j = 0; j < 9; j++){
                 buttons[i][j].setLayoutParams(layoutParams);
                 tableRow.addView(buttons[i][j]);
