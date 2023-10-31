@@ -27,15 +27,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        TableLayout table = binding.table;
         Button[][] buttons = new Button[9][9];
 
-        for (int i = 0; i < 9; i++)
-            for (int j = 0; j < 9; j++)
-                buttons[i][j] = new Button(this);
-
-        TableLayout table = binding.table;
-
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < 9; i++) {
             TableRow tableRow = new TableRow(this);
 
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -44,18 +39,14 @@ public class MainActivity extends AppCompatActivity {
                     1.0f
             );
 
-            for (int j = 0; j < 9; j++){
+            for (int j = 0; j < 9; j++) {
+                buttons[i][j] = new Button(this);
+
                 buttons[i][j].setLayoutParams(layoutParams);
                 tableRow.addView(buttons[i][j]);
             }
 
             table.addView(tableRow);
         }
-
-
-
-
-
-
     }
 }
