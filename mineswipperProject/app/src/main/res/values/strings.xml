@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">mineswipperProject</string>
+    <string name="BUTTON_TEXT">BREAK</string>
+    <string name="MINE_COUNTER">Mines : </string>
+</resources>
