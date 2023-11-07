@@ -2,29 +2,18 @@ package com.chattymin.mineswipperproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-
 import com.chattymin.mineswipperproject.databinding.ActivityMainBinding;
-
-import java.lang.reflect.Array;
-import java.net.Inet4Address;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private BlockButton[][] buttons = new BlockButton[9][9];
+    public static int totalMines = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
             table.addView(tableRow);
         }
+
+        setTotalMines();
     }
     
     private void setMines(@NonNull Set<Pair<Integer, Integer>> mineSet){
@@ -74,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
             mineSet.add(new Pair<>(x, y));
         }
+    }
+
+    private void setTotalMines(){
+        String text = "Mines : ";
+        binding.tvMainMineCount.setText(text + totalMines);
     }
 
     private void countNeighborMines(){
@@ -99,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 buttons[i][j].setOnClickListener(
-                        view -> ((BlockButton)view).toggleFlag()
+                        view -> {
+                            ((BlockButton) view).breakBlock();//toggleFlag()
+                            setTotalMines();
+                        }
                 );
             }
         }

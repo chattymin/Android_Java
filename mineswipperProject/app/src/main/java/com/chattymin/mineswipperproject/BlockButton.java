@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.Button;
 
-@SuppressLint("AppCompatCustomView")
+@SuppressLint({"AppCompatCustomView", "ViewConstructor"})
 public class BlockButton extends Button {
     int x;
     int y;
@@ -38,16 +38,14 @@ public class BlockButton extends Button {
 
     public void breakBlock(){
         if (isMine) {
+            MainActivity.totalMines--;
             super.setClickable(false);
             super.setText(String.valueOf(neighborMineCount));
             super.setBackgroundColor(Color.RED);
         } else {
             super.setClickable(false);
             super.setText(String.valueOf(neighborMineCount));
-            super.setBackgroundColor(Color.GRAY);
-            // Display the number of mines around the block
-            // Represent the uncovered block with a number
-            // return false
+            super.setBackgroundColor(Color.LTGRAY);
         }
     }
 }
