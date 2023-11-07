@@ -2,11 +2,16 @@ package com.chattymin.mineswipperproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
 import com.chattymin.mineswipperproject.databinding.ActivityMainBinding;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
         setTotalMines();
     }
-    
-    private void setMines(@NonNull Set<Pair<Integer, Integer>> mineSet){
+
+    private void setMines(@NonNull Set<Pair<Integer, Integer>> mineSet) {
         while (mineSet.size() < 10) {
             int x = (int) (Math.random() * 9);
             int y = (int) (Math.random() * 9);
@@ -67,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setTotalMines(){
+    private void setTotalMines() {
         String text = "Mines : ";
         binding.tvMainMineCount.setText(text + totalMines);
     }
 
-    private void countNeighborMines(){
+    private void countNeighborMines() {
         int[] searchX = {-1, 0, 1, 0};
         int[] searchY = {0, -1, 0, 1};
 
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     int newX = i + searchX[k];
                     int newY = j + searchY[k];
 
-                    if (newX >= 0 && newY >= 0 && newX < 9 && newY < 9) {
+                    if (checkValidArea(newX, newY)) {
                         if (buttons[newX][newY].isMine)
                             buttons[i][j].neighborMineCount++;
                     }
@@ -91,16 +96,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onClick(){
+    private boolean checkValidArea(int newX, int newY) {
+        return newX >= 0 && newY >= 0 && newX < 9 && newY < 9;
+    }
+
+    private void onClick() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                buttons[i][j].setOnClickListener(
-                        view -> {
-                            ((BlockButton) view).breakBlock();//toggleFlag()
-                            setTotalMines();
-                        }
-                );
+                breakBlockButton(i, j);
             }
         }
     }
+
+    private void breakBlockButton(int x, int y) {
+        buttons[x][y].setOnClickListener(
+                view -> {
+                    breakBlock(view, x, y);
+                }
+        );
+    }
+
+    private void breakBlock(View view, int x, int y){
+        ((BlockButton) view).breakBlock();//toggleFlag()
+        setTotalMines();
+        if (!((BlockButton) view).isMine) {
+            breakZeroBlocks(x, y);
+        }
+    }
+
+    private void breakZeroBlocks(int x, int y) {
+        int[] searchX = {-1, 0, 1, 0};
+        int[] searchY = {0, -1, 0, 1};
+
+        for (int k = 0; k < 4; k++) {
+            Log.e("TAG", "breakZeroBlocks");
+            int newX = x + searchX[k];
+            int newY = y + searchY[k];
+
+            if (checkValidArea(newX, newY)) {
+                if (!buttons[newX][newY].isMine && buttons[newX][newY].isClickable())
+                    breakBlock(buttons[newX][newY], newX, newY);
+            }
+        }
+    }
+
 }

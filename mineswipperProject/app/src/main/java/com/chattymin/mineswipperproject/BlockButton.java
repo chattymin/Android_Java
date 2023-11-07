@@ -44,8 +44,13 @@ public class BlockButton extends Button {
             super.setBackgroundColor(Color.RED);
         } else {
             super.setClickable(false);
-            super.setText(String.valueOf(neighborMineCount));
             super.setBackgroundColor(Color.LTGRAY);
+
+            if (neighborMineCount == 0){
+                super.setText("");
+            }else{
+                super.setText(String.valueOf(neighborMineCount));
+            }
         }
     }
 }
