@@ -38,7 +38,7 @@ public class BlockButton extends Button {
 
     public void breakBlock(){
         if (isMine) {
-            MainActivity.totalMines--;
+            MainActivity.TOTAL_MINES_COUNT--;
             super.setClickable(false);
             super.setText(String.valueOf(neighborMineCount));
             super.setBackgroundColor(Color.RED);

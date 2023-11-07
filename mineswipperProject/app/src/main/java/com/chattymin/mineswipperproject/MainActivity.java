@@ -16,8 +16,9 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-    private BlockButton[][] buttons = new BlockButton[9][9];
-    public static int totalMines = 10;
+    public static int TOTAL_MINES_COUNT = 10;
+    public static int SIZE = 9;
+    private BlockButton[][] buttons = new BlockButton[SIZE][SIZE];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         TableLayout table = binding.table;
-        buttons = new BlockButton[9][9];
+        buttons = new BlockButton[SIZE][SIZE];
 
         Set<Pair<Integer, Integer>> mineSet = new HashSet<>();
         setMines(mineSet);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < SIZE; i++) {
             TableRow tableRow = new TableRow(this);
 
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     1.0f
             );
 
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (mineSet.contains(new Pair<>(i, j)))
                     buttons[i][j] = new BlockButton(this, i, j, true);
                 else
@@ -63,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMines(@NonNull Set<Pair<Integer, Integer>> mineSet) {
-        while (mineSet.size() < 10) {
-            int x = (int) (Math.random() * 9);
-            int y = (int) (Math.random() * 9);
+        while (mineSet.size() < TOTAL_MINES_COUNT) {
+            int x = (int) (Math.random() * SIZE);
+            int y = (int) (Math.random() * SIZE);
 
             mineSet.add(new Pair<>(x, y));
         }
@@ -73,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void setTotalMines() {
         String text = "Mines : ";
-        binding.tvMainMineCount.setText(text + totalMines);
+        binding.tvMainMineCount.setText(text + TOTAL_MINES_COUNT);
     }
 
     private void countNeighborMines() {
         int[] searchX = {-1, 0, 1, 0};
         int[] searchY = {0, -1, 0, 1};
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 for (int k = 0; k < 4; k++) {
                     int newX = i + searchX[k];
                     int newY = j + searchY[k];
@@ -100,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMineButtonClickListener() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 clickButton(i, j);
             }
         }
