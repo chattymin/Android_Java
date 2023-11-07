@@ -15,11 +15,11 @@ public class BlockButton extends Button {
     static int flags;
     static int blocks;
 
-    public BlockButton(Context context, int x, int y) {
+    public BlockButton(Context context, int x, int y, boolean isMine) {
         super(context);
         this.x = x;
         this.y = y;
-        this.isMine = false;
+        this.isMine = isMine;
         this.isFlag = false;
         this.neighborMineCount = 0;
         flags = 0;
@@ -37,7 +37,7 @@ public class BlockButton extends Button {
     }
 
     public void breakBlock(){
-        if (!isMine) {
+        if (isMine) {
             super.setClickable(false);
             super.setText(String.valueOf(neighborMineCount));
             super.setBackgroundColor(Color.RED);
