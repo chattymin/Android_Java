@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.chattymin.mineswipperproject.databinding.ActivityMainBinding;
 
+import java.lang.reflect.Array;
 import java.net.Inet4Address;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         init();
+        countNeighborMines();
         onClick();
     }
 
@@ -71,6 +73,25 @@ public class MainActivity extends AppCompatActivity {
             int y = (int) (Math.random() * 9);
 
             mineSet.add(new Pair<>(x, y));
+        }
+    }
+
+    private void countNeighborMines(){
+        int[] searchX = {-1, 0, 1, 0};
+        int[] searchY = {0, -1, 0, 1};
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                for (int k = 0; k < 4; k++) {
+                    int newX = i + searchX[k];
+                    int newY = j + searchY[k];
+
+                    if (newX >= 0 && newY >= 0 && newX < 9 && newY < 9) {
+                        if (buttons[newX][newY].isMine)
+                            buttons[i][j].neighborMineCount++;
+                    }
+                }
+            }
         }
     }
 

@@ -42,6 +42,9 @@ public class BlockButton extends Button {
             super.setText(String.valueOf(neighborMineCount));
             super.setBackgroundColor(Color.RED);
         } else {
+            super.setClickable(false);
+            super.setText(String.valueOf(neighborMineCount));
+            super.setBackgroundColor(Color.GRAY);
             // Display the number of mines around the block
             // Represent the uncovered block with a number
             // return false
