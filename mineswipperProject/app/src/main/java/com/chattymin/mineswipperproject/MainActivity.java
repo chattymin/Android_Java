@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import com.chattymin.mineswipperproject.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    private BlockButton[][] buttons = new BlockButton[9][9];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         init();
-
+        onClick();
     }
 
     private void init() {
         TableLayout table = binding.table;
-        Button[][] buttons = new Button[9][9];
+        buttons = new BlockButton[9][9];
 
         for (int i = 0; i < 9; i++) {
             TableRow tableRow = new TableRow(this);
@@ -40,13 +43,23 @@ public class MainActivity extends AppCompatActivity {
             );
 
             for (int j = 0; j < 9; j++) {
-                buttons[i][j] = new Button(this);
+                buttons[i][j] = new BlockButton(this, i, j);
 
                 buttons[i][j].setLayoutParams(layoutParams);
                 tableRow.addView(buttons[i][j]);
             }
 
             table.addView(tableRow);
+        }
+    }
+
+    private void onClick(){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                buttons[i][j].setOnClickListener(
+                        view -> ((BlockButton)view).toggleFlag()
+                );
+            }
         }
     }
 }
