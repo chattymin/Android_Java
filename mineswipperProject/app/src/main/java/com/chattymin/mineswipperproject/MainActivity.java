@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.TableLayout;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         countNeighborMines();
-        onClick();
+        setMineButtonClickListener();
     }
 
     private void init() {
@@ -100,18 +99,19 @@ public class MainActivity extends AppCompatActivity {
         return newX >= 0 && newY >= 0 && newX < 9 && newY < 9;
     }
 
-    private void onClick() {
+    private void setMineButtonClickListener() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                breakBlockButton(i, j);
+                clickButton(i, j);
             }
         }
     }
 
-    private void breakBlockButton(int x, int y) {
+    private void clickButton(int x, int y){
         buttons[x][y].setOnClickListener(
                 view -> {
                     breakBlock(view, x, y);
+                    // break할지, toggleFlag할지 확장성 고려
                 }
         );
     }
@@ -119,17 +119,18 @@ public class MainActivity extends AppCompatActivity {
     private void breakBlock(View view, int x, int y){
         ((BlockButton) view).breakBlock();//toggleFlag()
         setTotalMines();
-        if (!((BlockButton) view).isMine) {
-            breakZeroBlocks(x, y);
+        if (((BlockButton) view).isMine) {
+            // game over
+        }else{
+            breakNeighborBlocks(x, y);
         }
     }
 
-    private void breakZeroBlocks(int x, int y) {
+    private void breakNeighborBlocks(int x, int y) {
         int[] searchX = {-1, 0, 1, 0};
         int[] searchY = {0, -1, 0, 1};
 
         for (int k = 0; k < 4; k++) {
-            Log.e("TAG", "breakZeroBlocks");
             int newX = x + searchX[k];
             int newY = y + searchY[k];
 
