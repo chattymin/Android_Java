@@ -26,38 +26,39 @@ public class BlockButton extends Button {
         blocks = 0;
     }
 
-    public void toggleFlag(){
-        if(isFlag){
+    public void toggleFlag() {
+        if (isFlag) {
             isFlag = false;
             super.setText("");
-        }else{
+        } else {
             isFlag = true;
             super.setText("+");
         }
     }
 
-    public void breakBlock(){
+    public void breakBlock() {
         MainActivity activity = (MainActivity) getContext();
-        // flag이면 클릭 안되게 해야함.
-        if (isMine) {
-            MainActivity.TOTAL_MINES_COUNT--;
-            super.setClickable(false);
-            super.setText("X");
-            super.setBackgroundColor(Color.RED);
-            activity.gameOver();
-        } else {
-            MainActivity.BLOCKS--;
-            super.setClickable(false);
-            super.setBackgroundColor(Color.LTGRAY);
+        if (!isFlag) {
+            if (isMine) {
+                MainActivity.TOTAL_MINES_COUNT--;
+                super.setClickable(false);
+                super.setText("X");
+                super.setBackgroundColor(Color.RED);
+                activity.gameOver();
+            } else {
+                MainActivity.BLOCKS--;
+                super.setClickable(false);
+                super.setBackgroundColor(Color.LTGRAY);
 
-            if (neighborMineCount == 0){
-                super.setText("");
-            }else{
-                super.setText(String.valueOf(neighborMineCount));
-            }
+                if (neighborMineCount == 0) {
+                    super.setText("");
+                } else {
+                    super.setText(String.valueOf(neighborMineCount));
+                }
 
-            if (MainActivity.BLOCKS == MainActivity.TOTAL_MINES_COUNT) {
-                activity.gameWin();
+                if (MainActivity.BLOCKS == MainActivity.TOTAL_MINES_COUNT) {
+                    activity.gameWin();
+                }
             }
         }
     }

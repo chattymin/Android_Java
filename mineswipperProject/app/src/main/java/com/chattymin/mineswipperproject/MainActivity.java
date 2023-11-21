@@ -15,6 +15,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    public static boolean CLICKTYPE = true;
     public static int BLOCKS = 81;
     public static int TOTAL_MINES_COUNT = 10;
     public static int SIZE = 9;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         countNeighborMines();
         setMineButtonClickListener();
+        setClickTypeBtnClickListener();
     }
 
     private void init() {
@@ -111,10 +113,18 @@ public class MainActivity extends AppCompatActivity {
     private void clickButton(int x, int y){
         buttons[x][y].setOnClickListener(
                 view -> {
-                    breakBlock(view, x, y);
-                    // break할지, toggleFlag할지 확장성 고려
+                    if (CLICKTYPE){
+                        if (!buttons[x][y].isFlag)
+                            breakBlock(view, x, y);
+                    }
+                    else
+                        toggleFlag(view);
                 }
         );
+    }
+
+    private void toggleFlag(View view){
+        ((BlockButton) view).toggleFlag();
     }
 
     private void breakBlock(View view, int x, int y){
@@ -136,10 +146,22 @@ public class MainActivity extends AppCompatActivity {
             int newY = y + searchY[k];
 
             if (checkValidArea(newX, newY)) {
-                if (!buttons[newX][newY].isMine && buttons[newX][newY].isClickable())
+                if (!buttons[newX][newY].isMine && buttons[newX][newY].isClickable() && !buttons[newX][newY].isFlag)
                     breakBlock(buttons[newX][newY], newX, newY);
             }
         }
+    }
+
+    void setClickTypeBtnClickListener(){
+        binding.btnMainToggle.setOnClickListener(view -> {
+            if(CLICKTYPE){
+                CLICKTYPE = false;
+                binding.btnMainToggle.setText("Flag");
+            }else{
+                CLICKTYPE = true;
+                binding.btnMainToggle.setText("Break");
+            }
+        });
     }
 
     void gameWin(){
