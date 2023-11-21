@@ -2,20 +2,20 @@ package com.chattymin.mineswipperproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-
 import com.chattymin.mineswipperproject.databinding.ActivityMainBinding;
-
 import java.util.HashSet;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    public static int BLOCKS = 81;
     public static int TOTAL_MINES_COUNT = 10;
     public static int SIZE = 9;
     private BlockButton[][] buttons = new BlockButton[SIZE][SIZE];
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void breakBlock(View view, int x, int y){
-        ((BlockButton) view).breakBlock();//toggleFlag()
+        ((BlockButton) view).breakBlock();
         setTotalMines();
         if (((BlockButton) view).isMine) {
             // game over
@@ -142,4 +142,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    void gameWin(){
+        makeDialog("Game Win", "You Win");
+    }
+
+    void gameOver(){
+        makeDialog("Game Over", "You Lose");
+    }
+
+    void makeDialog(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", (dialogInterface, i) -> {
+            TOTAL_MINES_COUNT = 10;
+            BLOCKS = 81;
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        });
+        builder.show();
+    }
 }

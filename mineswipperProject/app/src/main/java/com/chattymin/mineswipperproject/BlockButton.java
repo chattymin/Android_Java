@@ -37,12 +37,16 @@ public class BlockButton extends Button {
     }
 
     public void breakBlock(){
+        MainActivity activity = (MainActivity) getContext();
+        // flag이면 클릭 안되게 해야함.
         if (isMine) {
             MainActivity.TOTAL_MINES_COUNT--;
             super.setClickable(false);
-            super.setText(String.valueOf(neighborMineCount));
+            super.setText("X");
             super.setBackgroundColor(Color.RED);
+            activity.gameOver();
         } else {
+            MainActivity.BLOCKS--;
             super.setClickable(false);
             super.setBackgroundColor(Color.LTGRAY);
 
@@ -50,6 +54,10 @@ public class BlockButton extends Button {
                 super.setText("");
             }else{
                 super.setText(String.valueOf(neighborMineCount));
+            }
+
+            if (MainActivity.BLOCKS == MainActivity.TOTAL_MINES_COUNT) {
+                activity.gameWin();
             }
         }
     }
