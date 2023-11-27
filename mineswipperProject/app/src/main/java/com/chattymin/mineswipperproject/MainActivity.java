@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void countNeighborMines() {
-        int[] searchX = {-1, 0, 1, 0};
-        int[] searchY = {0, -1, 0, 1};
+        int[] searchX = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] searchY = {-1, 0, 1, -1, 1, -1, 0, 1};
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                for (int k = 0; k < 4; k++) {
+                for (int k = 0; k < searchX.length; k++) {
                     int newX = i + searchX[k];
                     int newY = j + searchY[k];
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     private void breakBlock(View view, int x, int y){
         ((BlockButton) view).breakBlock();
         setTotalMines();
-        if (((BlockButton) view).isMine) {
+        if (((BlockButton) view).neighborMineCount !=0) {
             // game over
         }else{
             breakNeighborBlocks(x, y);
